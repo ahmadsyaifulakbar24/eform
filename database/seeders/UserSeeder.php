@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
+            'id' => '7bdeba5c-fc1f-4e36-9e66-f14e0519e16b',
             'name' => 'Admin',
             'email' => 'bti@kemenkopukm.go.id',
             'password' => Hash::make('supporteform2022'),

@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\UserController;
+use App\Http\Controllers\API\Param\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,11 +22,17 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::prefix('auth')->group(function() {
-    Route::post('login', LoginController::class);
+Route::post('auth/login', LoginController::class);
+
+Route::controller(ParamController::class)->group(function () {
+    Route::get('params/business_activity', 'get_business_activity');
+    Route::get('params/business_fields', 'get_business_fields');
+    Route::get('params/business_type', 'get_business_type');
+    Route::get('params/image_plut', 'get_image_plut');
+    Route::get('params/industry', 'get_industry');
 });
 
 Route::middleware('auth:api')->group(function() {
-    Route::get('user', UserController::class);
-    Route::post('logout', LogoutController::class);
+    Route::get('auth/user', UserController::class);
+    Route::post('auth/logout', LogoutController::class);
 });
