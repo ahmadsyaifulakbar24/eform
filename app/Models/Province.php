@@ -2,21 +2,16 @@
 
 namespace App\Models;
 
-use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Param extends Model
+class Province extends Model
 {
-    use Uuids, HasFactory;
+    use HasFactory;
 
-    protected $table = 'params';
+    protected $table = 'provinces';
     protected $fillable = [
-        'parent_id',
-        'category',
-        'param',
-        'alias',
-        'order'
+        'province'
     ];
 
     public $timestamps = false;

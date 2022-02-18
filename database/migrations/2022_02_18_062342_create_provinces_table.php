@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('params', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('parent_id')->nullable();
-            $table->string('category');
-            $table->string('param');
-            $table->string('alias')->nullable();
-            $table->string('order')->nullable();
+        Schema::create('provinces', function (Blueprint $table) {
+            $table->id();
+            $table->string('province');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('params');
+        Schema::dropIfExists('provinces');
     }
 };

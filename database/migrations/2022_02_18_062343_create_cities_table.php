@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('params', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('parent_id')->nullable();
-            $table->string('category');
-            $table->string('param');
-            $table->string('alias')->nullable();
-            $table->string('order')->nullable();
+        Schema::create('cities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('city');
+            $table->integer('type')->nullable();
+            $table->string('state_capital')->nullable();
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('params');
+        Schema::dropIfExists('cities');
     }
 };
