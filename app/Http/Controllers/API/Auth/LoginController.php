@@ -17,12 +17,12 @@ class LoginController extends Controller
     public function __invoke(Request $request)
     {// validasi form input
         $request->validate([
-            'username' => ['required', 'string'],
+            'email' => ['required', 'string'],
             'password' => ['required']
         ]);
         try {
             // Mengecek credential login
-            $credentials = request(['username', 'password']);
+            $credentials = request(['email', 'password']);
             if(!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized'
@@ -30,7 +30,7 @@ class LoginController extends Controller
             }
 
             // Jika Hash atau password tidak sesuai
-            $user = User::where('username', $request->username)->first();
+            $user = User::where('email', $request->email)->first();
             if(!Hash::check($request->password, $user->password)) {
                 throw new \Exception('Invalid Credentials');
             }
