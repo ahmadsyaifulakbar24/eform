@@ -5,6 +5,7 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\UserController;
 use App\Http\Controllers\API\BusinessForm\BusinessFormController;
 use App\Http\Controllers\API\Param\ParamController;
+use App\Http\Controllers\API\Region\RegionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,10 @@ Route::controller(ParamController::class)->group(function () {
     Route::get('params/industry', 'get_industry');
 });
 
+Route::controller(RegionController::class)->group(function () {
+    Route::get('region/province', 'province');
+    Route::get('region/city', 'city');
+});
 Route::controller(BusinessFormController::class)->group(function() {
     Route::get('business_form', 'get');
     Route::get('business_form/{business_form:id}', 'show');
