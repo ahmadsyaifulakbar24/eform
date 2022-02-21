@@ -22,6 +22,7 @@ class BusinessFormResource extends JsonResource
             'business_type' => new ParamResource($this->business_type),
             'business_fields' => new ParamResource($this->business_fields),
             'industry' => new ParamResource($this->industry),
+            'main_product' => $this->main_product,
             'capital' => $this->capital,
             'annual_turnover' => $this->annual_turnover,
             'company_description' => $this->company_description,
@@ -30,6 +31,8 @@ class BusinessFormResource extends JsonResource
                 'id' => $this->city->id,
                 'city' => $this->city->city,
             ],
+            'kecamatan' => $this->kecamatan,
+            'kelurahan' => $this->kelurahan,
         ];
     }
 }

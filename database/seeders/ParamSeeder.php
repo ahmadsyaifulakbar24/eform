@@ -172,7 +172,7 @@ class ParamSeeder extends Seeder
         Param::create([
             'id' => '052349e9-1708-4ee0-a211-79c48150017f',
             'category' => 'industry',
-            'param' => 'Tekstil * Produk Kulit',
+            'param' => 'Tekstil & Produk Kulit',
             'order' => 7
         ]);
 
@@ -221,7 +221,7 @@ class ParamSeeder extends Seeder
         Param::create([
             'id' => '74a613b3-39ef-4e14-94cf-6f22ee5ffa68',
             'category' => 'industry',
-            'param' => 'Bahan & Saran Produksi',
+            'param' => 'Bahan & Sarana Produksi',
             'order' => 14
         ]);
 
@@ -263,9 +263,33 @@ class ParamSeeder extends Seeder
         Param::create([
             'id' => '9545cb62-c88a-4c59-881d-fb592ef2f8e6',
             'category' => 'business_activity',
-            'param' => 'Badan Usaha, misal: misal: Badan Usaha Milik Negara (BUMN), Perseroan Terbatas (PT), Badan Usaha Milik Daerah (BUMD), Persekutuan Komanditer (CV)',
+            'param' => 'BUMN',
             'order' => 1,
-            'alias' => 'BA1'
+            'alias' => 'bumn'
+        ]);
+
+        Param::create([
+            'id' => 'e629b591-cf23-43f0-83f1-5c263e84feee',
+            'category' => 'business_activity',
+            'param' => 'Perseroan Terbatas (PT)',
+            'order' => 1,
+            'alias' => 'pt'
+        ]);
+
+        Param::create([
+            'id' => 'c6caa5ea-dc63-488e-8438-65852d1ead28',
+            'category' => 'business_activity',
+            'param' => 'BUMD',
+            'order' => 1,
+            'alias' => 'bumd'
+        ]);
+
+        Param::create([
+            'id' => 'b7659ce5-d720-49bd-ba12-f65569ec7624',
+            'category' => 'business_activity',
+            'param' => 'Persekutuan Comanditer (CV)',
+            'order' => 1,
+            'alias' => 'cv'
         ]);
 
         Param::create([
@@ -273,7 +297,7 @@ class ParamSeeder extends Seeder
             'category' => 'business_activity',
             'param' => 'Non Badan Usaha (Perorangan)',
             'order' => 2,
-            'alias' => 'BA2'
+            'alias' => 'perorangan'
         ]);
 
         Param::create([

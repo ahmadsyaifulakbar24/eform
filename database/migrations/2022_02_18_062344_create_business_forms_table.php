@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignUuid('business_type_id')->comment('jenis usaha')->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('business_fields_id')->comment('bidang usaha')->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('industry_id')->constrained('params')->onUpdate('cascade');
+            $table->string('main_product');
             $table->string('capital')->comment('modal usaha');
             $table->string('annual_turnover')->comment('omzet pertahun');
             $table->string('total_employee')->comment('jumlah karyawan');
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->foreignId('province_id')->constrained('provinces')->onUpdate('cascade');
             $table->foreignId('city_id')->constrained('cities')->onUpdate('cascade');
             $table->text('address');
+            $table->string('kecamatan');
+            $table->string('kelurahan');
             $table->integer('postal_code')->comment('kode pos');
             $table->string('company_image')->comment('foto tempat usaha');
             $table->string('contact_name')->comment('nama kontak');
