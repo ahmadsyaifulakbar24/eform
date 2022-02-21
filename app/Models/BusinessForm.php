@@ -48,7 +48,9 @@ class BusinessForm extends Model
         'photo_with_ktp',
 
         'product_certificate',
-        'product_information'
+        'product_information',
+
+        'status_ukm'
     ];
 
     protected $appends = [

@@ -125,6 +125,8 @@ class BusinessFormController extends Controller
             'product.*.side_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
             'product.*.top_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
             'product.*.back_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
+            
+            'status_ukm' => ['required', 'string'],
         ]);
 
         $input = $request->except([

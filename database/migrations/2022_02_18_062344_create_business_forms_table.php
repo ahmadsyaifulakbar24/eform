@@ -51,6 +51,8 @@ return new class extends Migration
             $table->string('product_certificate')->nullable();
             $table->boolean('product_information');
 
+            $table->string('status_ukm');
+
             $table->timestamps();
         });
     }

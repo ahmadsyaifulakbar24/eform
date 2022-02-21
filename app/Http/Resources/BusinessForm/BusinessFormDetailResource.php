@@ -24,6 +24,7 @@ class BusinessFormDetailResource extends JsonResource
             'business_type' => new ParamResource($this->business_type),
             'business_fields' => new ParamResource($this->business_fields),
             'industry' => new ParamResource($this->industry),
+            'main_product' => $this->main_product,
             'capital' => $this->capital,
             'annual_turnover' => $this->annual_turnover,
             'company_description' => $this->company_description,
@@ -32,6 +33,8 @@ class BusinessFormDetailResource extends JsonResource
                 'id' => $this->city->id,
                 'city' => $this->city->city,
             ],
+            'kecamatan' => $this->kecamatan,
+            'kelurahan' => $this->kelurahan,
             'address' => $this->address,
             'postal_code' => $this->postal_code,
             'company_image_url' => $this->company_image_url,
@@ -51,6 +54,7 @@ class BusinessFormDetailResource extends JsonResource
             'product_certificate' => ProductCertificateResource::collection($this->product_certificate_data),
             'product_information' => $this->product_information,
             'product' => ProductResource::collection($this->product),
+            'status_ukm' => $this->status_ukm,
         ];
     }
 }
