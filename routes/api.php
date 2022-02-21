@@ -41,5 +41,5 @@ Route::controller(BusinessFormController::class)->group(function() {
 
 Route::middleware('auth:api')->group(function() {
     Route::get('auth/user', UserController::class);
-    Route::post('auth/logout', LogoutController::class);
+    Route::delete('auth/logout', LogoutController::class);
 });
