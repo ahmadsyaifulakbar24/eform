@@ -261,10 +261,18 @@ class ParamSeeder extends Seeder
         ]);
 
         Param::create([
+            'id' => 'e15bbc3a-dd35-4dbb-ae56-c1d0c2bb20c5',
+            'category' => 'business_activity',
+            'param' => 'Koperasi',
+            'order' => 1,
+            'alias' => 'koperasi'
+        ]);
+
+        Param::create([
             'id' => '9545cb62-c88a-4c59-881d-fb592ef2f8e6',
             'category' => 'business_activity',
             'param' => 'Badan Usaha Milik Negara (BUMN)',
-            'order' => 1,
+            'order' => 2,
             'alias' => 'bumn'
         ]);
 
@@ -272,7 +280,7 @@ class ParamSeeder extends Seeder
             'id' => 'e629b591-cf23-43f0-83f1-5c263e84feee',
             'category' => 'business_activity',
             'param' => 'Perseroan Terbatas (PT)',
-            'order' => 2,
+            'order' => 3,
             'alias' => 'pt'
         ]);
 
@@ -280,7 +288,7 @@ class ParamSeeder extends Seeder
             'id' => 'c6caa5ea-dc63-488e-8438-65852d1ead28',
             'category' => 'business_activity',
             'param' => 'Badan Usaha Milik Daerah (BUMD)',
-            'order' => 3,
+            'order' => 4,
             'alias' => 'bumd'
         ]);
 
@@ -288,16 +296,8 @@ class ParamSeeder extends Seeder
             'id' => 'b7659ce5-d720-49bd-ba12-f65569ec7624',
             'category' => 'business_activity',
             'param' => 'Persekutuan Komanditer (CV)',
-            'order' => 4,
-            'alias' => 'cv'
-        ]);
-
-        Param::create([
-            'id' => 'e15bbc3a-dd35-4dbb-ae56-c1d0c2bb20c5',
-            'category' => 'business_activity',
-            'param' => 'Koperasi',
             'order' => 5,
-            'alias' => 'koperasi'
+            'alias' => 'cv'
         ]);
 
         Param::create([

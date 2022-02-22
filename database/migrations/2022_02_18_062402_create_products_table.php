@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('price');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->string('front_image');
             $table->string('side_image');
             $table->string('top_image');

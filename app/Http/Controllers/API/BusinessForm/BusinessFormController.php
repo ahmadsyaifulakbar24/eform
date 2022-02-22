@@ -120,7 +120,7 @@ class BusinessFormController extends Controller
             'product.*.name' => ['required_with:product', 'string'],
             'product.*.description' => ['required_with:product', 'string'],
             'product.*.price' => ['required_with:product', 'integer'],
-            'product.*.sku' => ['required_with:product', 'string'],
+            'product.*.sku' => ['nullable', 'string'],
             'product.*.front_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
             'product.*.side_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
             'product.*.top_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
