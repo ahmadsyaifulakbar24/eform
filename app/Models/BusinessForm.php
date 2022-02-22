@@ -32,6 +32,7 @@ class BusinessForm extends Model
         'postal_code',
         'company_image',
         'contact_name',
+        'nik',
         'phone',
         'email',
         'website',

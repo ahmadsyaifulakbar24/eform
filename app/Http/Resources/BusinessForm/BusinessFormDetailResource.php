@@ -39,6 +39,7 @@ class BusinessFormDetailResource extends JsonResource
             'postal_code' => $this->postal_code,
             'company_image_url' => $this->company_image_url,
             'contact_name' => $this->contact_name,
+            'nik' => $this->nik,
             'phone' => $this->phone,
             'email' => $this->email,
             'website' => $this->website,

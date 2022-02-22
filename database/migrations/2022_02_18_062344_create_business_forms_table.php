@@ -33,9 +33,10 @@ return new class extends Migration
             $table->integer('postal_code')->comment('kode pos');
             $table->string('company_image')->comment('foto tempat usaha');
             $table->string('contact_name')->comment('nama kontak');
+            $table->string('nik');
             $table->string('phone');
             $table->string('email');
-            $table->string('website')->comment('website atau sosial media');
+            $table->string('website')->nullable()->comment('website atau sosial media');
             $table->foreignUuid('business_activity_id')->constrained('params')->onUpdate('cascade');
 
             $table->string('company_npwp')->nullable()->comment('npwp perusahaan');

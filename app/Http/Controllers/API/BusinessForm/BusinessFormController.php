@@ -57,9 +57,10 @@ class BusinessFormController extends Controller
             'postal_code' => ['required', 'integer'],
             'company_image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
             'contact_name' => ['required', 'string'],
+            'nik' => ['required', 'numeric', 'digits:16'],
             'phone' => ['required', 'string'],
             'email' => ['required', 'email'],
-            'website' => ['required', 'url'],
+            'website' => ['nullable', 'url'],
             'business_activity_id' => [
                 'required',
                 Rule::exists('params', 'id')->where(function($query){
@@ -201,10 +202,46 @@ class BusinessFormController extends Controller
     public function get(Request $request)
     {
         $request->validate([
+            'province_id' => ['nullable', 'exists:provinces,id'],
+            'business_type_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'business_type');
+                }), 
+            ],
+            'business_fields_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'business_fields');
+                }), 
+            ],
+            'industry_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'industry');
+                }), 
+            ],
             'limit' => ['nullable', 'integer']
         ]);
         $limit = $request->input('limit', 10);
+
         $business_form = BusinessForm::query();
+        if($request->province_id) {
+            $business_form->where('province_id', $request->province_id);
+        }
+
+        if($request->business_type_id) {
+            $business_form->where('business_type_id', $request->business_type_id);
+        }
+
+        if($request->business_fields_id) {
+            $business_form->where('business_fields_id', $request->business_fields_id);
+        }
+
+        if($request->industry_id) {
+            $business_form->where('industry_id', $request->industry_id);
+        }
+
         $result = $business_form->paginate($limit);
         return ResponseFormatter::success(BusinessFormResource::collection($result)->response()->getData(true), 'success get bussines form data');
     }
