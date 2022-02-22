@@ -25,6 +25,7 @@ class BusinessFormResource extends JsonResource
             'main_product' => $this->main_product,
             'capital' => $this->capital,
             'annual_turnover' => $this->annual_turnover,
+            'total_employee' => $this->total_employee,
             'company_description' => $this->company_description,
             'province' => $this->province,
             'city' => [
