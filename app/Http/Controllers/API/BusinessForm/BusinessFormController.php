@@ -70,39 +70,39 @@ class BusinessFormController extends Controller
 
         $ba_alias = Param::find($request->business_activity_id)->alias;
         $request->validate([
-            // IF != Perorangan;
+            // IF != perseorangan;
             'company_npwp' => [
-                Rule::requiredIf($ba_alias != 'perorangan'),
+                Rule::requiredIf($ba_alias != 'perseorangan'),
                 'file'
             ],
             'company_akta' => [
-                Rule::requiredIf($ba_alias != 'perorangan'),
+                Rule::requiredIf($ba_alias != 'perseorangan'),
                 'file'
             ],
             'nib' => [
-                Rule::requiredIf($ba_alias != 'perorangan'),
+                Rule::requiredIf($ba_alias != 'perseorangan'),
                 'file'
             ],
             'director_ktp' => [
-                Rule::requiredIf($ba_alias != 'perorangan'),
+                Rule::requiredIf($ba_alias != 'perseorangan'),
                 'file'
             ],
             'sk_kemenkumham' => [
-                Rule::requiredIf($ba_alias != 'perorangan'),
+                Rule::requiredIf($ba_alias != 'perseorangan'),
                 'file'
             ],
 
-            // IF Perorangan;
+            // IF perseorangan;
             'npwp' => [
-                Rule::requiredIf($ba_alias == 'perorangan'),
+                Rule::requiredIf($ba_alias == 'perseorangan'),
                 'file'
             ],
             'ktp' => [
-                Rule::requiredIf($ba_alias == 'perorangan'),
+                Rule::requiredIf($ba_alias == 'perseorangan'),
                 'file'
             ],
             'photo_with_ktp' => [
-                Rule::requiredIf($ba_alias == 'perorangan'),
+                Rule::requiredIf($ba_alias == 'perseorangan'),
                 'file'
             ],
 
@@ -142,13 +142,13 @@ class BusinessFormController extends Controller
             'photo_with_ktp'
         ]);
         $input['company_image'] = FileHelpers::upload_file('files', $request->company_image);
-        if($ba_alias != 'perorangan') {
+        if($ba_alias != 'perseorangan') {
             $input['company_npwp'] = FileHelpers::upload_file('files', $request->company_npwp);
             $input['company_akta'] = FileHelpers::upload_file('files', $request->company_akta);
             $input['nib'] = FileHelpers::upload_file('files', $request->nib);
             $input['director_ktp'] = FileHelpers::upload_file('files', $request->director_ktp);
             $input['sk_kemenkumham'] = FileHelpers::upload_file('files', $request->sk_kemenkumham);
-        } else if($ba_alias == 'perorangan') {
+        } else if($ba_alias == 'perseorangan') {
             $input['npwp'] = FileHelpers::upload_file('files', $request->npwp);
             $input['ktp'] = FileHelpers::upload_file('files', $request->ktp);
             $input['photo_with_ktp'] = FileHelpers::upload_file('files', $request->photo_with_ktp);
