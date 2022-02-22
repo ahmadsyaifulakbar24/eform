@@ -33,13 +33,20 @@ Route::controller(RegionController::class)->group(function () {
     Route::get('region/province', 'province');
     Route::get('region/city', 'city');
 });
+
 Route::controller(BusinessFormController::class)->group(function() {
-    Route::get('business_form', 'get');
-    Route::get('business_form/{business_form:id}', 'show');
     Route::post('business_form/create', 'create');
 });
 
 Route::middleware('auth:api')->group(function() {
     Route::get('auth/user', UserController::class);
     Route::delete('auth/logout', LogoutController::class);
+
+    Route::controller(BusinessFormController::class)->group(function() {
+        Route::get('business_form', 'get');
+        Route::get('business_form/{business_form:id}', 'show');
+        Route::get('business_form/total/province', 'total_by_province');
+        Route::get('business_form/total/business_type', 'total_by_business_type');
+        Route::get('business_form/total/industry', 'total_by_industry');
+    });
 });

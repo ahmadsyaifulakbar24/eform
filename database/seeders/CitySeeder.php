@@ -16,24 +16,6 @@ class CitySeeder extends Seeder
     public function run()
     {
         $city = DB::table('cities');
-        
-        $city->insert([
-            'id' => 101,
-            'province_id' => 1,
-            'city' => 'KEMENKOP UKM',
-        ]);
-
-        $city->insert([
-            'id' => 102,
-            'province_id' => 1,
-            'city' => 'LPDB',
-        ]);
-
-        $city->insert([
-            'id' => 103,
-            'province_id' => 1,
-            'city' => 'LLP KUKM',
-        ]);
 
         $city->insert([
             'id' => 1101,

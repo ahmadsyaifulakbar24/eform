@@ -10,6 +10,7 @@ use App\Http\Resources\BusinessForm\BusinessFormResource;
 use App\Models\BusinessForm;
 use App\Models\Param;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\Pure;
@@ -249,5 +250,29 @@ class BusinessFormController extends Controller
     public function show(BusinessForm $business_form)
     {
         return ResponseFormatter::success(new BusinessFormDetailResource($business_form), 'success get business form data');
+    }
+
+    public function total_by_province()
+    {
+        $result = DB::table('vw_total_business_form_by_province')->orderBy('id', 'asc')->get();
+        return ResponseFormatter::success($result, 'success get total business form by province data');
+    }
+
+    public function total_by_business_type()
+    {
+        $result = DB::table('vw_total_business_form_by_business_type')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success($result, 'success get total business form by business type data');
+    }
+
+    public function total_by_business_fields()
+    {
+        $result = DB::table('vw_total_business_form_by_business_fields')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success($result, 'success get total business form by business fields data');
+    }
+
+    public function total_by_industry()
+    {
+        $result = DB::table('vw_total_business_form_by_industry')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success($result, 'success get total business form by industry data');
     }
 }
