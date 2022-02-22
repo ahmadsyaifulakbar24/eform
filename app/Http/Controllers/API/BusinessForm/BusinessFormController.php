@@ -6,14 +6,11 @@ use App\Helpers\FileHelpers;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BusinessForm\BusinessFormDetailResource;
-use App\Http\Resources\BusinessForm\BusinessFormResource;
 use App\Models\BusinessForm;
 use App\Models\Param;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
-use JetBrains\PhpStorm\Pure;
 
 class BusinessFormController extends Controller
 {
@@ -249,7 +246,7 @@ class BusinessFormController extends Controller
         } else {
             $result = $business_form->get();
         }
-        return ResponseFormatter::success(BusinessFormResource::collection($result)->response()->getData(true), 'success get bussines form data');
+        return ResponseFormatter::success(BusinessFormDetailResource::collection($result)->response()->getData(true), 'success get bussines form data');
     }
 
     public function show(BusinessForm $business_form)
