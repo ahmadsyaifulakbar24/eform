@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function() {
     Route::controller(BusinessFormController::class)->group(function() {
         Route::get('business_form', 'get');
         Route::get('business_form/{business_form:id}', 'show');
+        Route::get('business_form/total/all', 'total_all');
         Route::get('business_form/total/province', 'total_by_province');
         Route::get('business_form/total/business_type', 'total_by_business_type');
         Route::get('business_form/total/industry', 'total_by_industry');

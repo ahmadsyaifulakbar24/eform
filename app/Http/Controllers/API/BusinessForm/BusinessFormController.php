@@ -222,6 +222,7 @@ class BusinessFormController extends Controller
                     return $query->where('category', 'industry');
                 }), 
             ],
+            'limit_page' => ['required', 'boolean'],
             'limit' => ['nullable', 'integer']
         ]);
         $limit = $request->input('limit', 10);
@@ -243,13 +244,23 @@ class BusinessFormController extends Controller
             $business_form->where('industry_id', $request->industry_id);
         }
 
-        $result = $business_form->paginate($limit);
+        if($request->limit_page == 1) {
+            $result = $business_form->paginate($limit);
+        } else {
+            $result = $business_form->get();
+        }
         return ResponseFormatter::success(BusinessFormResource::collection($result)->response()->getData(true), 'success get bussines form data');
     }
 
     public function show(BusinessForm $business_form)
     {
         return ResponseFormatter::success(new BusinessFormDetailResource($business_form), 'success get business form data');
+    }
+
+    public function total_all()
+    {
+        $result = BusinessForm::count();
+        return ResponseFormatter::success($result, 'success get total business form data');
     }
 
     public function total_by_province()
