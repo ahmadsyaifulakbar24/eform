@@ -321,5 +321,25 @@ class ParamSeeder extends Seeder
             'param' => 'https://lh3.googleusercontent.com/lHn8rV9PtH_cfM_r2kMbDiyat9aBn7Ge6hhBsfC3KCx0cFVIHoVFz2S7yqSqWGVbqMQW6Dx4xUA9QgFpxyzpp9R8HVEbuJ4YSFCRFALteSXITFrEx3kpdHHliueSNYt42A=w1024',
             'order' => 2,
         ]);
+
+        Param::create([
+            'id' => 'b86ba5ca-18b3-46e9-b930-64af9919b59f',
+            'category' => 'annual_turnover',
+            'param' => 'Paling Banyak Rp. 2 Miliar (Usaha Mikro)',
+            'order' => 1,
+        ]);
+
+        Param::create([
+            'id' => '60dd6c89-6286-4c27-9195-245e21eb13da',
+            'category' => 'annual_turnover',
+            'param' => 'Lebih dari Rp. 2 Miliar - Paling Banyak Rp. 15 Miliar (Usaha Kecil)',
+            'order' => 2,
+        ]);
+        Param::create([
+            'id' => 'f8ee6568-1607-43c5-97f1-884fc4828889',
+            'category' => 'annual_turnover',
+            'param' => 'Lebih dari Rp. 15 Miliar - Paling Banyak Rp. 50 Miliar (Usaha Menengah)',
+            'order' => 3,
+        ]);
     }
 }

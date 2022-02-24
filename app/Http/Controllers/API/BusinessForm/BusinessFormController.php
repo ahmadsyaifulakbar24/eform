@@ -283,4 +283,10 @@ class BusinessFormController extends Controller
         $result = DB::table('vw_total_business_form_by_industry')->orderBy('order', 'asc')->get();
         return ResponseFormatter::success($result, 'success get total business form by industry data');
     }
+
+    public function total_by_annual_turnover()
+    {
+        $result = DB::table('vw_total_business_form_by_annual_turnover')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success($result, 'success get total business form by annual turnover data');
+    }
 }

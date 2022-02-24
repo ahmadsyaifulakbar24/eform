@@ -67,6 +67,19 @@ return new class extends Migration
             WHERE a.category = 'industry'
             GROUP BY a.id;
         ");
+
+        DB::statement("DROP VIEW IF EXISTS vw_total_business_form_by_annual_turnover");
+        DB::statement("
+            CREATE VIEW vw_total_business_form_by_annual_turnover AS
+            SELECT 
+                a.param, 
+                a.order,
+                COUNT(b.annual_turnover) as total
+            FROM params a
+            LEFT JOIN business_forms b ON a.param = b.annual_turnover
+            WHERE a.category = 'annual_turnover'
+            GROUP BY a.param;
+        ");
     }
 
     /**
