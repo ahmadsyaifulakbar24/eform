@@ -58,7 +58,7 @@ class BusinessFormController extends Controller
             'nik' => ['required', 'numeric', 'digits:16'],
             'phone' => ['required', 'string'],
             'email' => ['required', 'email'],
-            'website' => ['nullable', 'url'],
+            'website' => ['nullable', 'string'],
             'business_activity_id' => [
                 'required',
                 Rule::exists('params', 'id')->where(function($query){
