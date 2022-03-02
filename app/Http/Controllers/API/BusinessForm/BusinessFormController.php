@@ -108,7 +108,7 @@ class BusinessFormController extends Controller
             'product_certificate' => ['nullable', 'array'],
             'product_certificate.*' => ['required_with:product_certificate', 'file'],
 
-            'product_information' => ['required', 'boolean'],
+            // 'product_information' => ['required', 'boolean'],
 
             // product field
             'product' => [
@@ -131,6 +131,7 @@ class BusinessFormController extends Controller
         $input = $request->except([
             'product',
             'product_certificate',
+            'product_information',
             'company_npwp',
             'company_akta',
             'nib',
@@ -140,6 +141,7 @@ class BusinessFormController extends Controller
             'ktp',
             'photo_with_ktp'
         ]);
+        $input['product_information'] = 1;
         $input['company_image'] = FileHelpers::upload_file('files', $request->company_image);
         if($ba_alias != 'perseorangan') {
             $input['company_npwp'] = FileHelpers::upload_file('files', $request->company_npwp);
