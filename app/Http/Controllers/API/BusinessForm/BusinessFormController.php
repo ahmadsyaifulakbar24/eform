@@ -289,4 +289,15 @@ class BusinessFormController extends Controller
         $result = DB::table('vw_total_business_form_by_annual_turnover')->orderBy('order', 'asc')->get();
         return ResponseFormatter::success($result, 'success get total business form by annual turnover data');
     }
+
+    public function total_by_image_product()
+    {
+        $business_form = BusinessForm::query();
+        $result = [
+            'found' => $business_form->where('product_information', 1)->count(),
+            'not_found' => $business_form->where('product_information', 0)->count(),
+        ];
+
+        return ResponseFormatter::success($result, 'success get total business form by image product');
+    }
 }

@@ -51,5 +51,6 @@ Route::middleware('auth:api')->group(function() {
         Route::get('business_form/total/business_fields', 'total_by_business_fields');
         Route::get('business_form/total/industry', 'total_by_industry');
         Route::get('business_form/total/annual_turnover', 'total_by_annual_turnover');
+        Route::get('business_form/total/image_product', 'total_by_image_product');
     });
 });
