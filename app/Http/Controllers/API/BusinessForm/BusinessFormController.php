@@ -174,27 +174,25 @@ class BusinessFormController extends Controller
         }
 
         // insert product
-        if($request->product_information == 1) {
-            foreach($request->product as $product) {
+        foreach($request->product as $product) {
 
-                $front_image_path = FileHelpers::upload_file('product', $product['front_image']);
-                $side_image_path = FileHelpers::upload_file('product', $product['side_image']);
-                $top_image_path = FileHelpers::upload_file('product', $product['top_image']);
-                $back_image_path = FileHelpers::upload_file('product', $product['back_image']);
+            $front_image_path = FileHelpers::upload_file('product', $product['front_image']);
+            $side_image_path = FileHelpers::upload_file('product', $product['side_image']);
+            $top_image_path = FileHelpers::upload_file('product', $product['top_image']);
+            $back_image_path = FileHelpers::upload_file('product', $product['back_image']);
 
-                $products[] = [
-                    'name' => $product['name'],
-                    'description' => $product['description'],
-                    'price' => $product['price'],
-                    'sku' => $product['sku'],
-                    'front_image' => $front_image_path,
-                    'side_image' => $side_image_path,
-                    'top_image' => $top_image_path,
-                    'back_image' => $back_image_path,
-                ];
-            }
-            $business_form->product()->createMany($products);
+            $products[] = [
+                'name' => $product['name'],
+                'description' => $product['description'],
+                'price' => $product['price'],
+                'sku' => $product['sku'],
+                'front_image' => $front_image_path,
+                'side_image' => $side_image_path,
+                'top_image' => $top_image_path,
+                'back_image' => $back_image_path,
+            ];
         }
+        $business_form->product()->createMany($products);
 
         return ResponseFormatter::success(new BusinessFormDetailResource($business_form), 'success create business form data');
     }
@@ -222,7 +220,9 @@ class BusinessFormController extends Controller
                 }), 
             ],
             'limit_page' => ['required', 'boolean'],
-            'limit' => ['nullable', 'integer']
+            'limit' => ['nullable', 'integer'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date'],
         ]);
         $limit = $request->input('limit', 10);
 
@@ -242,6 +242,10 @@ class BusinessFormController extends Controller
         if($request->industry_id) {
             $business_form->where('industry_id', $request->industry_id);
         }
+
+        // if($request->start_date) {
+        //     $business_form->where('start_date', $request)
+        // }
 
         if($request->limit_page == 1) {
             $result = $business_form->paginate($limit);
