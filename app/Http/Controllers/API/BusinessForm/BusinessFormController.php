@@ -248,7 +248,7 @@ class BusinessFormController extends Controller
         }
 
         if($request->end_date) {
-            $business_form->where('created_at', '>=', $request->end_date);
+            $business_form->where('created_at', '<=', $request->end_date);
         }
 
         if($request->limit_page == 1) {
