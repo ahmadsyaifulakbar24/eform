@@ -219,10 +219,12 @@ class BusinessFormController extends Controller
                     return $query->where('category', 'industry');
                 }), 
             ],
+            'annual_turnover' => ['nullable', 'string'],
             'limit_page' => ['required', 'boolean'],
             'limit' => ['nullable', 'integer'],
             'start_date' => ['nullable', 'date'],
             'end_date' => ['nullable', 'date'],
+            'search' => ['nullable', 'string'],
         ]);
         $limit = $request->input('limit', 10);
 
@@ -243,6 +245,10 @@ class BusinessFormController extends Controller
             $business_form->where('industry_id', $request->industry_id);
         }
 
+        if($request->annual_turnover) {
+            $business_form->where('annual_turnover', $request->annual_turnover);
+        }
+
         if($request->start_date) {
             $business_form->where('created_at', '>=', $request->start_date);
         }
@@ -251,6 +257,10 @@ class BusinessFormController extends Controller
             $business_form->where('created_at', '<=', $request->end_date);
         }
 
+        if($request->search) {
+            $business_form->where('company_name', 'like', '%'.$request->search.'%');
+        }
+        
         if($request->limit_page == 1) {
             $result = $business_form->paginate($limit);
         } else {
