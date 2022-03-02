@@ -292,10 +292,9 @@ class BusinessFormController extends Controller
 
     public function total_by_image_product()
     {
-        $business_form = BusinessForm::query();
         $result = [
-            'found' => $business_form->where('product_information', 1)->count(),
-            'not_found' => $business_form->where('product_information', 0)->count(),
+            'found' => BusinessForm::where('product_information', 1)->count(),
+            'not_found' => BusinessForm::where('product_information', 0)->count(),
         ];
 
         return ResponseFormatter::success($result, 'success get total business form by image product');
