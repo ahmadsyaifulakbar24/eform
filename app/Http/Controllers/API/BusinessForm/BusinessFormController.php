@@ -243,9 +243,13 @@ class BusinessFormController extends Controller
             $business_form->where('industry_id', $request->industry_id);
         }
 
-        // if($request->start_date) {
-        //     $business_form->where('start_date', $request)
-        // }
+        if($request->start_date) {
+            $business_form->where('created_at', '>=', $request->start_date);
+        }
+
+        if($request->end_date) {
+            $business_form->where('created_at', '>=', $request->end_date);
+        }
 
         if($request->limit_page == 1) {
             $result = $business_form->paginate($limit);
