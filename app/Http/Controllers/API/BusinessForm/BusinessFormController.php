@@ -128,6 +128,7 @@ class BusinessFormController extends Controller
             'status_ukm' => ['required', 'string'],
         ]);
 
+        
         $input = $request->except([
             'product',
             'product_certificate',
@@ -154,47 +155,49 @@ class BusinessFormController extends Controller
             $input['ktp'] = FileHelpers::upload_file('files', $request->ktp);
             $input['photo_with_ktp'] = FileHelpers::upload_file('files', $request->photo_with_ktp);
         }
-        
-        // return $input;
-        // insert business form
-        $business_form = BusinessForm::create($input);
-        
-        // insert product certificate
-        if(!empty($request->product_certificate)) {
-            foreach($request->product_certificate as $product_certificate) {
-                $file_name = $product_certificate->getClientOriginalName();
-                $path = FileHelpers::upload_file('files', $product_certificate);
-                $product_certificates[] = [
-                    'path' => $path,
-                    'file_name' => $file_name,
-                    'type' => 'product_certificate'
+
+        $result = DB::transaction(function() use ($request, $input) {
+            // insert business form
+            $business_form = BusinessForm::create($input);
+            
+            // insert product certificate
+            if(!empty($request->product_certificate)) {
+                foreach($request->product_certificate as $product_certificate) {
+                    $file_name = $product_certificate->getClientOriginalName();
+                    $path = FileHelpers::upload_file('files', $product_certificate);
+                    $product_certificates[] = [
+                        'path' => $path,
+                        'file_name' => $file_name,
+                        'type' => 'product_certificate'
+                    ];
+                }
+                $business_form->product_certificate()->createMany($product_certificates);
+            }
+    
+            // insert product
+            foreach($request->product as $product) {
+    
+                $front_image_path = FileHelpers::upload_file('product', $product['front_image']);
+                $side_image_path = FileHelpers::upload_file('product', $product['side_image']);
+                $top_image_path = FileHelpers::upload_file('product', $product['top_image']);
+                $back_image_path = FileHelpers::upload_file('product', $product['back_image']);
+    
+                $products[] = [
+                    'name' => $product['name'],
+                    'description' => $product['description'],
+                    'price' => $product['price'],
+                    'sku' => !empty($product['sku']) ? $product['sku'] : null,
+                    'front_image' => $front_image_path,
+                    'side_image' => $side_image_path,
+                    'top_image' => $top_image_path,
+                    'back_image' => $back_image_path,
                 ];
             }
-            $business_form->product_certificate()->createMany($product_certificates);
-        }
-
-        // insert product
-        foreach($request->product as $product) {
-
-            $front_image_path = FileHelpers::upload_file('product', $product['front_image']);
-            $side_image_path = FileHelpers::upload_file('product', $product['side_image']);
-            $top_image_path = FileHelpers::upload_file('product', $product['top_image']);
-            $back_image_path = FileHelpers::upload_file('product', $product['back_image']);
-
-            $products[] = [
-                'name' => $product['name'],
-                'description' => $product['description'],
-                'price' => $product['price'],
-                'sku' => !empty($product['sku']) ? $product['sku'] : null,
-                'front_image' => $front_image_path,
-                'side_image' => $side_image_path,
-                'top_image' => $top_image_path,
-                'back_image' => $back_image_path,
-            ];
-        }
-        $business_form->product()->createMany($products);
-
-        return ResponseFormatter::success(new BusinessFormDetailResource($business_form), 'success create business form data');
+            $business_form->product()->createMany($products);
+    
+            return ResponseFormatter::success(new BusinessFormDetailResource($business_form), 'success create business form data');
+        });
+        return $result;
     }
 
     public function get(Request $request)
@@ -260,7 +263,7 @@ class BusinessFormController extends Controller
         if($request->search) {
             $business_form->where('company_name', 'like', '%'.$request->search.'%');
         }
-        
+        $business_form->orderBy('created_at', 'desc');
         if($request->limit_page == 1) {
             $result = $business_form->paginate($limit);
         } else {
