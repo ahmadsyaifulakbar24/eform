@@ -185,7 +185,7 @@ class BusinessFormController extends Controller
                 'name' => $product['name'],
                 'description' => $product['description'],
                 'price' => $product['price'],
-                'sku' => $product['sku'],
+                'sku' => !empty($product['sku']) ? $product['sku'] : null,
                 'front_image' => $front_image_path,
                 'side_image' => $side_image_path,
                 'top_image' => $top_image_path,
