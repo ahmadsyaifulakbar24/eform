@@ -154,6 +154,9 @@ class BusinessFormController extends Controller
             $input['npwp'] = FileHelpers::upload_file('files', $request->npwp);
             $input['ktp'] = FileHelpers::upload_file('files', $request->ktp);
             $input['photo_with_ktp'] = FileHelpers::upload_file('files', $request->photo_with_ktp);
+            if($request->nib) {
+                $input['nib'] = FileHelpers::upload_file('files', $request->nib);
+            }
         }
 
         $result = DB::transaction(function() use ($request, $input) {
