@@ -53,7 +53,7 @@ class BusinessFormController extends Controller
             'kecamatan' => ['required', 'string'],
             'kelurahan' => ['required', 'string'],
             'postal_code' => ['required', 'integer'],
-            'company_image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
+            'company_image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
             'contact_name' => ['required', 'string'],
             'nik' => ['required', 'numeric', 'digits:16'],
             'phone' => ['required', 'string'],
@@ -72,37 +72,45 @@ class BusinessFormController extends Controller
             // IF != perseorangan;
             'company_npwp' => [
                 Rule::requiredIf($ba_alias != 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
             'company_akta' => [
                 Rule::requiredIf($ba_alias != 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
             'nib' => [
                 Rule::requiredIf($ba_alias != 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
             'director_ktp' => [
                 Rule::requiredIf($ba_alias != 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
             'sk_kemenkumham' => [
                 Rule::requiredIf($ba_alias != 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
 
             // IF perseorangan;
             'npwp' => [
                 Rule::requiredIf($ba_alias == 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
             'ktp' => [
                 Rule::requiredIf($ba_alias == 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
             'photo_with_ktp' => [
                 Rule::requiredIf($ba_alias == 'perseorangan'),
-                'file'
+                'file',
+                'max:5120'
             ],
 
             'product_certificate' => ['nullable', 'array'],
@@ -120,10 +128,10 @@ class BusinessFormController extends Controller
             'product.*.description' => ['required_with:product', 'string'],
             'product.*.price' => ['required_with:product', 'integer'],
             'product.*.sku' => ['nullable', 'string'],
-            'product.*.front_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
-            'product.*.side_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
-            'product.*.top_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
-            'product.*.back_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg'],
+            'product.*.front_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
+            'product.*.side_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
+            'product.*.top_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
+            'product.*.back_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
             
             'status_ukm' => ['required', 'string'],
         ]);
