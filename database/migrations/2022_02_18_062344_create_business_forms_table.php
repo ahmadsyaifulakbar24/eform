@@ -53,6 +53,8 @@ return new class extends Migration
             $table->boolean('product_information');
 
             $table->string('status_ukm');
+            $table->string('account_lpse')->nullable()->comment('Akun LPSE');
+            $table->string('registered_lkpp')->nullable()->comment('Terdaftar di katalog lkpp');
 
             $table->timestamps();
         });

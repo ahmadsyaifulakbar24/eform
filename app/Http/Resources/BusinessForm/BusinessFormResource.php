@@ -35,6 +35,8 @@ class BusinessFormResource extends JsonResource
             'kecamatan' => $this->kecamatan,
             'kelurahan' => $this->kelurahan,
             'status_ukm' => $this->status_ukm,
+            'account_lpse' => $this->account_lpse,
+            'registered_lkpp' => $this->registered_lkpp,
         ];
     }
 }

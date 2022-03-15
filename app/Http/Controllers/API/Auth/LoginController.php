@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     public function __invoke(Request $request)
-    {// validasi form input
+    { // validasi form input
         $request->validate([
             'email' => ['required', 'string'],
             'password' => ['required']
@@ -23,7 +23,7 @@ class LoginController extends Controller
         try {
             // Mengecek credential login
             $credentials = request(['email', 'password']);
-            if(!Auth::attempt($credentials)) {
+            if (!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized'
                 ], 'Authentication Failed', 500);
@@ -31,18 +31,17 @@ class LoginController extends Controller
 
             // Jika Hash atau password tidak sesuai
             $user = User::where('email', $request->email)->first();
-            if(!Hash::check($request->password, $user->password)) {
+            if (!Hash::check($request->password, $user->password)) {
                 throw new \Exception('Invalid Credentials');
             }
 
-             // Jika berhasil maka loginkan
-             $tokenResult = $user->createToken('authToken')->accessToken;
-             return ResponseFormatter::success([
-                 'access_token' => $tokenResult,
-                 'token_type' => 'Bearer',
-                 'user' => new UserResource($user)
-             ], 'Authenticated');
-
+            // Jika berhasil maka loginkan
+            $tokenResult = $user->createToken('authToken')->accessToken;
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'user' => new UserResource($user)
+            ], 'Authenticated');
         } catch (Exception $e) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',

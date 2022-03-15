@@ -57,6 +57,8 @@ class BusinessFormDetailResource extends JsonResource
             'product_information' => $this->product_information,
             'product' => ProductResource::collection($this->product),
             'status_ukm' => $this->status_ukm,
+            'account_lpse' => $this->account_lpse,
+            'registered_lkpp' => $this->registered_lkpp,
         ];
     }
 }

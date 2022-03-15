@@ -134,6 +134,8 @@ class BusinessFormController extends Controller
             'product.*.back_image' => ['required_with:product', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
             
             'status_ukm' => ['required', 'string'],
+            'account_lpse' => ['required', 'in:ada,tidak'],
+            'registered_lkpp' => ['required', 'in:ya,tidak'],
         ]);
 
         

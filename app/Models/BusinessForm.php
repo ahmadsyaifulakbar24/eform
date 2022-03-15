@@ -51,7 +51,9 @@ class BusinessForm extends Model
         'product_certificate',
         'product_information',
 
-        'status_ukm'
+        'status_ukm',
+        'account_lpse',
+        'registered_lkpp'
     ];
 
     protected $appends = [
