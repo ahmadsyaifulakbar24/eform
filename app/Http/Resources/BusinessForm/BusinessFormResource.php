@@ -37,6 +37,7 @@ class BusinessFormResource extends JsonResource
             'status_ukm' => $this->status_ukm,
             'account_lpse' => $this->account_lpse,
             'registered_lkpp' => $this->registered_lkpp,
+            'created_at' => $this->created_at,
         ];
     }
 }
