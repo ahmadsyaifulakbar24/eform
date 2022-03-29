@@ -41,6 +41,7 @@ class BusinessFormDetailResource extends JsonResource
             'company_image_url' => $this->company_image_url,
             'contact_name' => $this->contact_name,
             'nik' => $this->nik,
+            'field_npwp' => $this->field_npwp,
             'phone' => $this->phone,
             'email' => $this->email,
             'website' => $this->website,
@@ -58,6 +59,7 @@ class BusinessFormDetailResource extends JsonResource
             'product' => ProductResource::collection($this->product),
             'status_ukm' => $this->status_ukm,
             'account_lpse' => $this->account_lpse,
+            'lpse_name' => $this->lpse_name,
             'registered_lkpp' => $this->registered_lkpp,
             'created_at' => $this->created_at,
         ];

@@ -56,6 +56,7 @@ class BusinessFormController extends Controller
             'company_image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
             'contact_name' => ['required', 'string'],
             'nik' => ['required', 'numeric', 'digits:16'],
+            'field_npwp' => ['required', 'string'],
             'phone' => ['required', 'string'],
             'email' => ['required', 'email'],
             'website' => ['nullable', 'string'],
@@ -135,6 +136,10 @@ class BusinessFormController extends Controller
             
             'status_ukm' => ['required', 'string'],
             'account_lpse' => ['required', 'in:ada,tidak'],
+            'lpse_name' => [
+                Rule::requiredIf($request->account_lpse == 'ada'), 
+                'string'
+            ],
             'registered_lkpp' => ['required', 'in:ya,tidak'],
         ]);
 
@@ -150,10 +155,14 @@ class BusinessFormController extends Controller
             'sk_kemenkumham',
             'npwp',
             'ktp',
-            'photo_with_ktp'
+            'photo_with_ktp',
+            'lpse_name'
         ]);
         $input['product_information'] = 1;
         $input['company_image'] = FileHelpers::upload_file('files', $request->company_image);
+        if($request->account_lpse == 'ada') {
+            $input['lpse_name'] = $request->lpse_name;
+        }
         if($ba_alias != 'perseorangan') {
             $input['company_npwp'] = FileHelpers::upload_file('files', $request->company_npwp);
             $input['company_akta'] = FileHelpers::upload_file('files', $request->company_akta);

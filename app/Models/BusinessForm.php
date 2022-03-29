@@ -33,6 +33,7 @@ class BusinessForm extends Model
         'company_image',
         'contact_name',
         'nik',
+        'field_npwp',
         'phone',
         'email',
         'website',
@@ -53,6 +54,7 @@ class BusinessForm extends Model
 
         'status_ukm',
         'account_lpse',
+        'lpse_name',
         'registered_lkpp'
     ];
 
