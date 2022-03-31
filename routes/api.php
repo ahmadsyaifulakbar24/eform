@@ -54,3 +54,9 @@ Route::middleware('auth:api')->group(function() {
         Route::get('business_form/total/image_product', 'total_by_image_product');
     });
 });
+
+Route::middleware('client')->group(function() {
+    Route::controller(BusinessFormController::class)->group(function() {
+        Route::get('client/business_form', 'client_get');
+    });
+});

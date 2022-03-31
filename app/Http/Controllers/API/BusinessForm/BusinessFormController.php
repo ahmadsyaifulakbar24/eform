@@ -344,4 +344,48 @@ class BusinessFormController extends Controller
 
         return ResponseFormatter::success($result, 'success get total business form by image product');
     }
+
+
+    // CLIENT API
+    public function client_get(Request $request)
+    {
+        $request->validate([
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date'],
+            'business_activity_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'business_activity');
+                }), 
+            ],
+            'account_lpse' => ['nullable', 'in:ada,tidak'],
+            'registered_lkpp' => ['nullable', 'in:ya,tidak'],
+        ]);
+
+        $business_form = BusinessForm::query();
+
+        if($request->start_date) {
+            $business_form->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '>=', $request->start_date);
+        }
+
+        if($request->end_date) {
+            $business_form->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '<=', $request->end_date);
+        }
+
+        if($request->business_activity_id) {
+            $business_form->where('business_activity_id', $request->business_activity_id);
+        }
+
+        if($request->account_lpse) {
+            $business_form->where('account_lpse', $request->account_lpse);
+        }
+
+        if($request->registered_lkpp) {
+            $business_form->where('registered_lkpp', $request->registered_lkpp);
+        }
+
+        $business_form->orderBy('created_at', 'desc');
+        $result = $business_form->get();
+        return ResponseFormatter::success(BusinessFormDetailResource::collection($result), 'success get bussines form data');
+    }
 }
