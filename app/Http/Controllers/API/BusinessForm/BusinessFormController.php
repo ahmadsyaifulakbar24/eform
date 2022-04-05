@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BusinessForm\BusinessFormDetailResource;
 use App\Models\BusinessForm;
 use App\Models\Param;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -301,8 +302,11 @@ class BusinessFormController extends Controller
 
     public function total_all()
     {
-        $result = BusinessForm::count();
-        return ResponseFormatter::success($result, 'success get total business form data');
+        $data = [
+            'total_respondent' => BusinessForm::count(),
+            'total_product' => Product::count()
+        ];
+        return ResponseFormatter::success($data, 'success get total business form data');
     }
 
     public function total_by_province()
