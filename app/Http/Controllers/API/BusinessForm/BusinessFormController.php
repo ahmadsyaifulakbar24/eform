@@ -363,6 +363,7 @@ class BusinessFormController extends Controller
                 }), 
             ],
             'account_lpse' => ['nullable', 'in:ada,tidak'],
+            'lpse_name' => ['nullable', 'string'],
             'registered_lkpp' => ['nullable', 'in:ya,tidak'],
         ]);
 
@@ -382,6 +383,10 @@ class BusinessFormController extends Controller
 
         if($request->account_lpse) {
             $business_form->where('account_lpse', $request->account_lpse);
+        }
+
+        if($request->lpse_name) {
+            $business_form->where('lpse_name', $request->lpse_name);
         }
 
         if($request->registered_lkpp) {
