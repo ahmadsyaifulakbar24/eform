@@ -365,6 +365,7 @@ class BusinessFormController extends Controller
             'account_lpse' => ['nullable', 'in:ada,tidak'],
             'lpse_name' => ['nullable', 'string'],
             'registered_lkpp' => ['nullable', 'in:ya,tidak'],
+            'field_npwp' => ['nullable', 'string'],
         ]);
 
         $business_form = BusinessForm::query();
@@ -391,6 +392,10 @@ class BusinessFormController extends Controller
 
         if($request->registered_lkpp) {
             $business_form->where('registered_lkpp', $request->registered_lkpp);
+        }
+
+        if($request->field_npwp) {
+            $business_form->where('field_npwp', $request->field_npwp);
         }
 
         $business_form->orderBy('created_at', 'desc');
