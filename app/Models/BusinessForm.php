@@ -42,6 +42,7 @@ class BusinessForm extends Model
         'company_npwp',
         'company_akta',
         'nib',
+        'field_nib',
         'director_ktp',
         'sk_kemenkumham',
         
@@ -55,7 +56,8 @@ class BusinessForm extends Model
         'status_ukm',
         'account_lpse',
         'lpse_name',
-        'registered_lkpp'
+        'registered_lkpp',
+        'binaan_inaproduct'
     ];
 
     protected $appends = [

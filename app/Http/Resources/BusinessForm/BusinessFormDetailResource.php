@@ -49,6 +49,7 @@ class BusinessFormDetailResource extends JsonResource
             'company_npwp_url' => $this->company_npwp_url,
             'company_akta_url' => $this->company_akta_url,
             'nib_url' => $this->nib_url,
+            'field_nib' => $this->field_nib,
             'director_ktp_url' => $this->director_ktp_url,
             'sk_kemenkumham_url' => $this->sk_kemenkumham_url,
             'npwp_url' => $this->npwp_url,
@@ -61,6 +62,7 @@ class BusinessFormDetailResource extends JsonResource
             'account_lpse' => $this->account_lpse,
             'lpse_name' => $this->lpse_name,
             'registered_lkpp' => $this->registered_lkpp,
+            'binaan_inaproduct' => $this->binaan_inaproduct,
             'created_at' => $this->created_at,
         ];
     }

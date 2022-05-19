@@ -87,6 +87,10 @@ class BusinessFormController extends Controller
                 'file',
                 'max:5120'
             ],
+            'field_nib' => [
+                Rule::requiredIf($ba_alias != 'perseorangan'),
+                'string'
+            ],
             'director_ktp' => [
                 Rule::requiredIf($ba_alias != 'perseorangan'),
                 'file',
@@ -142,6 +146,7 @@ class BusinessFormController extends Controller
                 'string'
             ],
             'registered_lkpp' => ['required', 'in:ya,tidak'],
+            'binaan_inaproduct' => ['nullable', 'string'],
         ]);
 
         
