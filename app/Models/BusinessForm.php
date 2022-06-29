@@ -66,7 +66,7 @@ class BusinessForm extends Model
         'company_akta_url',
         'nib_url',
         'director_ktp_url',
-        'sk_kemenkukham_url',
+        'sk_kemenkumham_url',
         'npwp_url',
         'ktp_url',
         'photo_with_ktp_url'

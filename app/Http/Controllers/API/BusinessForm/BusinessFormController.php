@@ -6,9 +6,11 @@ use App\Helpers\FileHelpers;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BusinessForm\BusinessFormDetailResource;
+use App\Http\Resources\BusinessForm\BusinessFormTotalByProvinceResource;
 use App\Models\BusinessForm;
 use App\Models\Param;
 use App\Models\Product;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -128,7 +130,7 @@ class BusinessFormController extends Controller
             'product' => [
                 Rule::requiredIf($request->product_information == 1),
                 'array',
-                'max:3' 
+                'max:8' 
             ],
             'product.*.name' => ['required_with:product', 'string'],
             'product.*.description' => ['required_with:product', 'string'],
@@ -316,8 +318,9 @@ class BusinessFormController extends Controller
 
     public function total_by_province()
     {
-        $result = DB::table('vw_total_business_form_by_province')->orderBy('id', 'asc')->get();
-        return ResponseFormatter::success($result, 'success get total business form by province data');
+        $result = Province::all();
+        return ResponseFormatter::success(BusinessFormTotalByProvinceResource::collection($result), 'success get total business form by province data');
+        // return ResponseFormatter::success($result, 'success get total business form by province data');
     }
 
     public function total_by_business_type()

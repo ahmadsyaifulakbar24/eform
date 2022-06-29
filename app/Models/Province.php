@@ -15,4 +15,20 @@ class Province extends Model
     ];
 
     public $timestamps = false;
+
+    public function business_form_many()
+    {
+        return $this->hasMany(BusinessForm::class, 'province_id');
+    }
+    public function business_form()
+    {
+        return $this->hasManyThrough(
+            Product::class,
+            BusinessForm::class,
+            'province_id',
+            'business_form_id',
+            'id',
+            'id'
+        );
+    }
 }
