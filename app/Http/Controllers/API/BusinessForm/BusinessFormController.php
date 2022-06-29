@@ -6,6 +6,7 @@ use App\Helpers\FileHelpers;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BusinessForm\BusinessFormDetailResource;
+use App\Http\Resources\BusinessForm\BusinessFormTotalByParamResource;
 use App\Http\Resources\BusinessForm\BusinessFormTotalByProvinceResource;
 use App\Models\BusinessForm;
 use App\Models\Param;
@@ -320,31 +321,30 @@ class BusinessFormController extends Controller
     {
         $result = Province::all();
         return ResponseFormatter::success(BusinessFormTotalByProvinceResource::collection($result), 'success get total business form by province data');
-        // return ResponseFormatter::success($result, 'success get total business form by province data');
     }
 
     public function total_by_business_type()
     {
-        $result = DB::table('vw_total_business_form_by_business_type')->orderBy('order', 'asc')->get();
-        return ResponseFormatter::success($result, 'success get total business form by business type data');
+        $result = Param::where('category', 'business_type')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success(BusinessFormTotalByParamResource::collection($result), 'success get total business form by business type data');
     }
 
     public function total_by_business_fields()
     {
-        $result = DB::table('vw_total_business_form_by_business_fields')->orderBy('order', 'asc')->get();
-        return ResponseFormatter::success($result, 'success get total business form by business fields data');
+        $result = Param::where('category', 'business_fields')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success(BusinessFormTotalByParamResource::collection($result), 'success get total business form by business fields data');
     }
 
     public function total_by_industry()
     {
-        $result = DB::table('vw_total_business_form_by_industry')->orderBy('order', 'asc')->get();
-        return ResponseFormatter::success($result, 'success get total business form by industry data');
+        $result = Param::where('category', 'industry')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success(BusinessFormTotalByParamResource::collection($result), 'success get total business form by industry data');
     }
 
     public function total_by_annual_turnover()
     {
-        $result = DB::table('vw_total_business_form_by_annual_turnover')->orderBy('order', 'asc')->get();
-        return ResponseFormatter::success($result, 'success get total business form by annual turnover data');
+        $result = Param::where('category', 'annual_turnover')->orderBy('order', 'asc')->get();
+        return ResponseFormatter::success(BusinessFormTotalByParamResource::collection($result), 'success get total business form by annual turnover data');
     }
 
     public function total_by_image_product()
