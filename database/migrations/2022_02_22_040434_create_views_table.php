@@ -20,10 +20,12 @@ return new class extends Migration
             SELECT 
                 a.id, 
                 a.province, 
-                COUNT(b.province_id) as total
+                COUNT(b.province_id) as total,
+                c.total_product
             FROM provinces a
             LEFT JOIN business_forms b ON a.id = b.province_id
-            GROUP BY a.id
+            LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
+            GROUP BY a.id;
         ");
 
         DB::statement("DROP VIEW IF EXISTS vw_total_business_form_by_business_type");
@@ -33,11 +35,13 @@ return new class extends Migration
                 a.id,
                 a.param,
                 a.order,
-                COUNT(b.business_type_id) as total
+                COUNT(b.business_type_id) as total,
+                c.total_product
             FROM params a
             LEFT JOIN business_forms b ON a.id = b.business_type_id
+            LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
             WHERE a.category = 'business_type'
-            GROUP BY a.id
+            GROUP BY a.id;
         ");
 
         DB::statement("DROP VIEW IF EXISTS vw_total_business_form_by_business_fields");
@@ -47,9 +51,11 @@ return new class extends Migration
                 a.id,
                 a.param,
                 a.order,
-                COUNT(b.business_fields_id) as total
+                COUNT(b.business_fields_id) as total,
+                c.total_product
             FROM params a
             LEFT JOIN business_forms b ON a.id = b.business_fields_id
+            LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
             WHERE a.category = 'business_fields'
             GROUP BY a.id;
         ");
@@ -61,9 +67,11 @@ return new class extends Migration
                 a.id,
                 a.param,
                 a.order,
-                COUNT(b.industry_id) as total
+                COUNT(b.industry_id) as total,
+                c.total_product
             FROM params a
             LEFT JOIN business_forms b ON a.id = b.industry_id
+            LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
             WHERE a.category = 'industry'
             GROUP BY a.id;
         ");
@@ -74,9 +82,11 @@ return new class extends Migration
             SELECT 
                 a.param, 
                 a.order,
-                COUNT(b.annual_turnover) as total
+                COUNT(b.annual_turnover) as total,
+                c.total_product
             FROM params a
             LEFT JOIN business_forms b ON a.param = b.annual_turnover
+            LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
             WHERE a.category = 'annual_turnover'
             GROUP BY a.param;
         ");

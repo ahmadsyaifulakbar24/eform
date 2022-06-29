@@ -56,10 +56,10 @@ class BusinessFormController extends Controller
             'postal_code' => ['required', 'integer'],
             'company_image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:5120'],
             'contact_name' => ['required', 'string'],
-            'nik' => ['required', 'numeric', 'digits:16'],
+            'nik' => ['required', 'unique:business_forms,nik', 'numeric', 'digits:16'],
             'field_npwp' => ['required', 'string'],
-            'phone' => ['required', 'string'],
-            'email' => ['required', 'email'],
+            'phone' => ['required', 'unique:business_forms,phone', 'string'],
+            'email' => ['required', 'unique:business_forms,email', 'email'],
             'website' => ['nullable', 'string'],
             'business_activity_id' => [
                 'required',
