@@ -21,7 +21,7 @@ return new class extends Migration
                 a.id, 
                 a.province, 
                 COUNT(b.province_id) as total,
-                c.total_product
+                IFNULL(c.total_product, 0) as total_product
             FROM provinces a
             LEFT JOIN business_forms b ON a.id = b.province_id
             LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
@@ -36,7 +36,7 @@ return new class extends Migration
                 a.param,
                 a.order,
                 COUNT(b.business_type_id) as total,
-                c.total_product
+                IFNULL(c.total_product, 0) as total_product
             FROM params a
             LEFT JOIN business_forms b ON a.id = b.business_type_id
             LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
@@ -52,7 +52,7 @@ return new class extends Migration
                 a.param,
                 a.order,
                 COUNT(b.business_fields_id) as total,
-                c.total_product
+                IFNULL(c.total_product, 0) as total_product
             FROM params a
             LEFT JOIN business_forms b ON a.id = b.business_fields_id
             LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
@@ -68,7 +68,7 @@ return new class extends Migration
                 a.param,
                 a.order,
                 COUNT(b.industry_id) as total,
-                c.total_product
+                IFNULL(c.total_product, 0) as total_product
             FROM params a
             LEFT JOIN business_forms b ON a.id = b.industry_id
             LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
@@ -83,7 +83,7 @@ return new class extends Migration
                 a.param, 
                 a.order,
                 COUNT(b.annual_turnover) as total,
-                c.total_product
+                IFNULL(c.total_product, 0) as total_product
             FROM params a
             LEFT JOIN business_forms b ON a.param = b.annual_turnover
             LEFT JOIN (SELECT products.business_form_id, COUNT(*) as total_product FROM products) as c ON c.business_form_id = b.id
