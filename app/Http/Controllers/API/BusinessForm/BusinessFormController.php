@@ -18,6 +18,88 @@ use Illuminate\Validation\Rule;
 
 class BusinessFormController extends Controller
 {
+    public function get(Request $request)
+    {
+        $request->validate([
+            'province_id' => ['nullable', 'exists:provinces,id'],
+            'city_id' => [
+                'nullable',
+                Rule::exists('cities', 'id')->where(function($query) use ($request) {
+                    return $query->where('province_id', $request->province_id);
+                })
+            ],
+            'business_type_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'business_type');
+                }), 
+            ],
+            'business_fields_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'business_fields');
+                }), 
+            ],
+            'industry_id' => [
+                'nullable', 
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'industry');
+                }), 
+            ],
+            'annual_turnover' => ['nullable', 'string'],
+            'limit_page' => ['required', 'boolean'],
+            'limit' => ['nullable', 'integer'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date'],
+            'search' => ['nullable', 'string'],
+        ]);
+        $limit = $request->input('limit', 10);
+
+        $business_form = BusinessForm::query();
+        if($request->province_id) {
+            $business_form->where('province_id', $request->province_id);
+        }
+
+        if($request->city_id) {
+            $business_form->where('city_id', $request->city_id);
+        }
+
+        if($request->business_type_id) {
+            $business_form->where('business_type_id', $request->business_type_id);
+        }
+
+        if($request->business_fields_id) {
+            $business_form->where('business_fields_id', $request->business_fields_id);
+        }
+
+        if($request->industry_id) {
+            $business_form->where('industry_id', $request->industry_id);
+        }
+
+        if($request->annual_turnover) {
+            $business_form->where('annual_turnover', $request->annual_turnover);
+        }
+
+        if($request->start_date) {
+            $business_form->where('created_at', '>=', $request->start_date);
+        }
+
+        if($request->end_date) {
+            $business_form->where('created_at', '<=', $request->end_date);
+        }
+
+        if($request->search) {
+            $business_form->where('company_name', 'like', '%'.$request->search.'%');
+        }
+        $business_form->orderBy('created_at', 'desc');
+        if($request->limit_page == 1) {
+            $result = $business_form->paginate($limit);
+        } else {
+            $result = $business_form->get();
+        }
+        return ResponseFormatter::success(BusinessFormDetailResource::collection($result)->response()->getData(true), 'success get bussines form data');
+    }
+
     public function create(Request $request)
     {
         $request->validate([
@@ -229,78 +311,6 @@ class BusinessFormController extends Controller
             return ResponseFormatter::success(new BusinessFormDetailResource($business_form), 'success create business form data');
         });
         return $result;
-    }
-
-    public function get(Request $request)
-    {
-        $request->validate([
-            'province_id' => ['nullable', 'exists:provinces,id'],
-            'business_type_id' => [
-                'nullable', 
-                Rule::exists('params', 'id')->where(function($query) {
-                    return $query->where('category', 'business_type');
-                }), 
-            ],
-            'business_fields_id' => [
-                'nullable', 
-                Rule::exists('params', 'id')->where(function($query) {
-                    return $query->where('category', 'business_fields');
-                }), 
-            ],
-            'industry_id' => [
-                'nullable', 
-                Rule::exists('params', 'id')->where(function($query) {
-                    return $query->where('category', 'industry');
-                }), 
-            ],
-            'annual_turnover' => ['nullable', 'string'],
-            'limit_page' => ['required', 'boolean'],
-            'limit' => ['nullable', 'integer'],
-            'start_date' => ['nullable', 'date'],
-            'end_date' => ['nullable', 'date'],
-            'search' => ['nullable', 'string'],
-        ]);
-        $limit = $request->input('limit', 10);
-
-        $business_form = BusinessForm::query();
-        if($request->province_id) {
-            $business_form->where('province_id', $request->province_id);
-        }
-
-        if($request->business_type_id) {
-            $business_form->where('business_type_id', $request->business_type_id);
-        }
-
-        if($request->business_fields_id) {
-            $business_form->where('business_fields_id', $request->business_fields_id);
-        }
-
-        if($request->industry_id) {
-            $business_form->where('industry_id', $request->industry_id);
-        }
-
-        if($request->annual_turnover) {
-            $business_form->where('annual_turnover', $request->annual_turnover);
-        }
-
-        if($request->start_date) {
-            $business_form->where('created_at', '>=', $request->start_date);
-        }
-
-        if($request->end_date) {
-            $business_form->where('created_at', '<=', $request->end_date);
-        }
-
-        if($request->search) {
-            $business_form->where('company_name', 'like', '%'.$request->search.'%');
-        }
-        $business_form->orderBy('created_at', 'desc');
-        if($request->limit_page == 1) {
-            $result = $business_form->paginate($limit);
-        } else {
-            $result = $business_form->get();
-        }
-        return ResponseFormatter::success(BusinessFormDetailResource::collection($result)->response()->getData(true), 'success get bussines form data');
     }
 
     public function show(BusinessForm $business_form)
